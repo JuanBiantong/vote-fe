@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import styled from 'styled-components';
 import $ from 'jquery';
+import { Checkbox } from '@material-ui/core';
 
 const Container = styled.div`
-	width: 100%;
+	width: 80%;
 	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	margin: auto;
 `;
 
@@ -16,18 +21,37 @@ export default function HomePage() {
 		{ id: 3, name: 'Nataniel Rantetampang', sector: 2, penatua: 0, diaken: 0 },
 		{ id: 4, name: 'Pryanza Putra Sampeurang', sector: 1, penatua: 0, diaken: 0 },
 	];
+	
 
-	const [jabatan, setJabatan] = useState({
-		checkPenatua: 0,
-		checkDiaken: 0,
+	let [isChecked, setChecked] = useState({
+		checked: false,
 	});
 	const handleCheckbox = (even) => {
-		if(even.target.value==='penatua' && even.target.checked){
-			console.log(even.target.value);
-		}
-		if(even.target.value==='diaken' && even.target.checked){
-			console.log(even.target.value);
-		}
+		console.log(even.target.value);
+		data.map((d) => {
+			if (`${d.id}a` === even.target.name) {
+				if (even.target.value === 'penatua' && even.target.checked) {
+					d.penatua = 1;
+					d.diaken = 0;
+				} else {
+					d.penatua = 0;
+				}
+			}
+			if (`${d.id}b` === even.target.name) {
+				if (even.target.value === 'diaken' && even.target.checked) {
+					d.diaken = 1;
+					d.penatua = 0;
+				} else {
+					d.diaken = 0;
+				}
+			}
+			return d;
+		});
+		console.log(data)
+	};
+
+	const handleSubmit = (even) => {
+		even.prevenDefault();
 	};
 	data.map((d) => {
 		$(function () {
@@ -91,8 +115,9 @@ export default function HomePage() {
 						tableLayout: 'fixed',
 					}}
 				/>
-				<span>{jabatan.checkPenatua}</span>
-				<span>{jabatan.checkDiaken}</span>
+				<button type="submit" onSubmit={handleSubmit} color="">
+					Pilih
+				</button>
 			</Container>
 		</>
 	);
