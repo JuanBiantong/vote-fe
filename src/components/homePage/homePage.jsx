@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import styled from 'styled-components';
+import $ from 'jquery';
 
 const Container = styled.div`
 	width: 100%;
@@ -20,22 +21,21 @@ export default function HomePage() {
 		checkPenatua: 0,
 		checkDiaken: 0,
 	});
-// [even.target.name]: even.target.checked
 	const handleCheckbox = (even) => {
-		let getId = data.map((el)=>{
-			if(even.target.name === `${el.id}a`){
-				console.log(even.target.name);
-			}
-			if(even.target.name === `${el.id}b`){
-				console.log(even.target.name);
-			}
-		})
-		setJabatan({ 
-			...jabatan, getId: even.target.checked
-			 });
+		if(even.target.value==='penatua' && even.target.checked){
+			console.log(even.target.value);
+		}
+		if(even.target.value==='diaken' && even.target.checked){
+			console.log(even.target.value);
+		}
 	};
-	console.log(jabatan);
-
+	data.map((d) => {
+		$(function () {
+			$(`.${d.id}vote`).click(function (e) {
+				$(`.${d.id}vote`).not(this).prop('checked', false);
+			});
+		});
+	});
 	return (
 		<>
 			<Container>
@@ -65,10 +65,22 @@ export default function HomePage() {
 							headerStyle: { width: 20 },
 							render: (rowData) => (
 								<form>
-									<input type="checkbox" name={`${rowData.id}a`} onChange={handleCheckbox} />
+									<input
+										type="checkbox"
+										name={`${rowData.id}a`}
+										onChange={handleCheckbox}
+										className={`${rowData.id}vote`}
+										value="penatua"
+									/>
 									<label>Panatua</label>
 									<br />
-									<input type="checkbox" name={`${rowData.id}b`} onChange={handleCheckbox} />
+									<input
+										type="checkbox"
+										name={`${rowData.id}b`}
+										onChange={handleCheckbox}
+										className={`${rowData.id}vote`}
+										value="diaken"
+									/>
 									<label>Diaken</label>
 								</form>
 							),

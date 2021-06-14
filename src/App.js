@@ -46,7 +46,7 @@ function App() {
           state,
           dispatch
         }}>
-          {!state.isAuthenticated ?
+          {state.isAuthenticated ?
             <Redirect to={{
               pathname: "/"
             }}
