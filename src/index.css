@@ -28,3 +28,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.custom {
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 0px 0px 50px 5px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, 0px 0px 50px 5px rgba(0,0,0,0);
+}
+
