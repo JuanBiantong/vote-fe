@@ -16,8 +16,11 @@ const Container = styled.div`
 `;
 
 const TopContainer = styled.div`
+	position: fixed;
+	top: 0;
+	z-index: 1;
 	width: 100%;
-	height: 100%;
+	height: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
@@ -42,13 +45,13 @@ const Info = styled.div`
 	border: 1px solid rgba(200, 200, 200, 0.3);
 	padding: 0px 10px;
 	border-radius: 5px;
-	font-size: 12px;
+	font-size: 14px;
 	margin-bottom: 2%;
 	background: #f1f1f1;
 `;
 
 export const BoldLink = styled.li`
-	font-size: 12px;
+	font-size: 14px;
 	color: rgba(9, 9, 121, 0.8);
 	font-weight: bold;
 	line-height: 100%;
@@ -168,17 +171,17 @@ export default function HomePage() {
 		<>
 			<Container>
 				<TopContainer>
-					<HeaderText>DAFTAR CALON SEKTOR {data[0].sector}</HeaderText>
+					<HeaderText>DAFTAR CALON</HeaderText>
 					<MutedLink>
 						Silahkan memperhatikan daftar nama, dan mencentang posisi Bakal Calon Penatua 42 orang dan Bakal
 						Calon Diaken 32 orang yang anda rekomendasikan!
 					</MutedLink>
 					<Info>
 						<BoldLink>
-							Penatua yang sudah dipilih: <span>{statePenatua}</span> Orang
+							Penatua yang sudah dipilih: <span className="text-danger">{statePenatua} Orang</span> 
 						</BoldLink>
 						<BoldLink>
-							Diaken yang sudah dipilih: <span>{stateDiaken}</span> Orang
+							Diaken yang sudah dipilih: <span className="text-danger">{stateDiaken} Orang</span>
 						</BoldLink>
 					</Info>
 					<Input className="" id="myInput" type="text" placeholder="Cari nama atau sektor calon.." />
@@ -186,10 +189,11 @@ export default function HomePage() {
 
 				<table className="table table-bordered table-striped table-sm custom">
 					<thead>
-						<tr style={{fontSize:"14px"}}>
-							<th>No</th>
+						<tr style={{ fontSize: '16px' }}>
+							<th style={{ textAlign: 'center' }}>No</th>
 							<th>Nama Lengkap</th>
-							<th style={{textAlign:'center' }}>Jabatan</th>
+							<th style={{ textAlign: 'center' }}>Skt</th>
+							<th style={{ textAlign: 'center' }}>Jabatan</th>
 						</tr>
 					</thead>
 					<tbody id="myTable">
@@ -197,9 +201,10 @@ export default function HomePage() {
 							return (
 								<Fragment key={i}>
 									<tr>
-										<td style={{ width: '4%' }}>{item.id}</td>
+										<td style={{ width: '2%', textAlign: 'center' }}>{item.id}</td>
 										<td style={{ width: '46%' }}>{item.name}</td>
-										<td style={{ width: '50%' }}>
+										<td style={{ width: '2%', textAlign: 'center' }}>{item.sector}</td>
+										<td style={{ width: '50%', alignItems: 'center', lineHeight: "100%"}}>
 											<form className="custom2">
 												<div>
 													<input
@@ -209,7 +214,7 @@ export default function HomePage() {
 														className={`${item.id}vote`}
 														value="penatua"
 													/>
-													<label>&nbsp;Panatua</label>
+													<label>&nbsp;Pnt</label>
 												</div>
 												<div>
 													<input
@@ -219,7 +224,7 @@ export default function HomePage() {
 														className={`${item.id}vote`}
 														value="diaken"
 													/>
-													<label>&nbsp;Diaken</label>
+													<label>&nbsp;Dkn</label>
 												</div>
 											</form>
 										</td>

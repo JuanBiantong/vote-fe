@@ -27,7 +27,9 @@ input[type='number'] {
 
 .custom {
   position: relative;
+  margin-top: 200px;
   border-radius: 10px;
+  font-size: 14px;
 	-webkit-box-shadow: 0px 10px 13px -7px #565388, 0px 0px 50px 5px rgba(87, 53, 209, 0);
 	box-shadow: 0px 10px 13px -7px #443bbb, 0px 0px 50px 5px rgba(87, 53, 209, 0);
 }
@@ -35,4 +37,11 @@ input[type='number'] {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  line-height: 100%;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+     margin: 0;
 }

@@ -43,7 +43,7 @@ export const Input = styled.input`
   border-radius: 5px;
   border-bottom: 1.4px solid transparent;
   transition: all 200ms ease-in-out;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 2%;
 
   &::placeholder {
