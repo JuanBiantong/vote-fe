@@ -1,36 +1,38 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+	-moz-appearance: textfield;
 }
 
 .custom {
-  border-radius: 15px;
-  -webkit-box-shadow: 0px 10px 13px -7px #000000, 0px 0px 50px 5px rgba(0,0,0,0); 
-box-shadow: 0px 10px 13px -7px #000000, 0px 0px 50px 5px rgba(0,0,0,0);
+  position: relative;
+  border-radius: 10px;
+	-webkit-box-shadow: 0px 10px 13px -7px #565388, 0px 0px 50px 5px rgba(87, 53, 209, 0);
+	box-shadow: 0px 10px 13px -7px #443bbb, 0px 0px 50px 5px rgba(87, 53, 209, 0);
 }
-
+.custom2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
