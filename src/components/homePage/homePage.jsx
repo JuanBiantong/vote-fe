@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Input, SubmitButton } from '../accountBox/common';
 import $ from 'jquery';
+import axios from 'axios';
 
 const Container = styled.div`
 	width: 100%;
@@ -13,6 +14,8 @@ const Container = styled.div`
 	margin: auto;
 	padding: 2%;
 	font-size: 12px;
+	position: relative;
+	top: 50px;
 `;
 
 const TopContainer = styled.div`
@@ -20,7 +23,7 @@ const TopContainer = styled.div`
 	top: 0;
 	z-index: 1;
 	width: 100%;
-	height: 200px;
+	height: 250px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
@@ -66,45 +69,27 @@ export const MutedLink = styled.span`
 	margin: 0;
 	padding-bottom: 1em;
 `;
+export const Box = styled.div`
+	background: #f1f1f1;
+	padding: 4px;
+	border-radius: 5px;
+`;
 export default function HomePage() {
-	const backend = [
-		{ id: 1, name: 'Benny Mathius Lotte', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 2, name: 'Nunuk Soraya', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 3, name: 'Benyamin Rande', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 4, name: 'Paulina Dwi Astuti M.', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 5, name: 'Bisara Keka', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 6, name: 'Ratte Datu', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 7, name: 'Christyani Rannu', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 8, name: 'Friska Febriyani', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 9, name: 'Daud K. Pirade', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 10, name: 'Dety D. Palimbong', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 11, name: 'Frederik Lolo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 12, name: 'Diana Papayungan', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 13, name: 'Krisna Perdana Lolo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 14, name: 'Chrys Adrian Lolo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 15, name: 'Maega Hartini', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 16, name: 'Abednego B.S.', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 17, name: 'Santi Jayani', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 18, name: 'Marthen Bulo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 19, name: 'Theodora S', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 20, name: 'Yessy Permata Bulo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 21, name: 'Mariliana Berlian Bulo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 22, name: 'Mariliana Berlian Bulo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 23, name: 'Yulin Tonapa', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 24, name: 'Mayfry Membia', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 25, name: 'Yohana Payung', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 26, name: 'Milky Y. Palimbong', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 27, name: 'Nikolas Manuk Allo', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 28, name: 'Otniel Omu Sumbung', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 29, name: 'Kurnielti Palisuan', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 30, name: 'Nielda Kezia Sumbung', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 31, name: 'Nielda Kezia Sumbung', sector: 1, penatua: 0, diaken: 0 },
-		{ id: 32, name: 'Ny. Martha Paruru Salenda', sector: 1, penatua: 0, diaken: 0 },
-	];
-	const [data, setData] = useState(backend);
+	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(false);
 
-	let [statePenatua, setStatepenatua] = useState(0);
-	let [stateDiaken, setStatediaken] = useState(0);
+	const [statePenatua, setStatepenatua] = useState(0);
+	const [stateDiaken, setStatediaken] = useState(0);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setLoading(true);
+			const res = await axios.get('http://localhost:3000/anggota');
+			setData(res.data);
+			setLoading(false);
+		};
+		fetchData();
+	}, []);
 
 	const handleCheckbox = (even) => {
 		data.map((d, index) => {
@@ -137,6 +122,7 @@ export default function HomePage() {
 					setData(tmp_array);
 				}
 			}
+			console.log(data);
 			return d;
 		});
 		setStatepenatua(
@@ -161,12 +147,28 @@ export default function HomePage() {
 
 	$(document).ready(function () {
 		$('#myInput').on('keyup', function () {
-			var value = $(this).val().toLowerCase();
+			let value = $(this).val().toLowerCase();
 			$('#myTable tr').filter(function () {
 				return $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 			});
 		});
 	});
+
+	$(function () {
+		$('.sektor').click(function (e) {
+			let value = $(this).val();
+			$('#myTable tr').filter(function () {
+				return $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+			});
+		});
+	});
+
+	$('.clear').on('click', function () {
+		$('#myTable tr').filter(function () {
+			return $(this).toggle($(this).text().toLowerCase().indexOf('') > -1);
+		});
+	});
+
 	return (
 		<>
 			<Container>
@@ -178,19 +180,45 @@ export default function HomePage() {
 					</MutedLink>
 					<Info>
 						<BoldLink>
-							Penatua yang sudah dipilih: <span className="text-danger">{statePenatua} Orang</span> 
+							Penatua yang sudah dipilih: <span className="text-danger">{statePenatua} Orang</span>
 						</BoldLink>
 						<BoldLink>
 							Diaken yang sudah dipilih: <span className="text-danger">{stateDiaken} Orang</span>
 						</BoldLink>
 					</Info>
 					<Input className="" id="myInput" type="text" placeholder="Cari nama atau sektor calon.." />
+					<Box style={{ display: 'flex', justifyContent: 'space-between', width: '250px', margin: 'auto' }}>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="true" value="1">
+							1
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="2">
+							2
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="3">
+							3
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="4">
+							4
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="5">
+							5
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="6">
+							6
+						</button>
+						<button className="btn btn-outline-primary btn-sm sektor" aria-pressed="false" value="7">
+							7
+						</button>
+						<button className="btn btn-outline-primary btn-sm clear" aria-pressed="false">
+							Semua
+						</button>
+					</Box>
 				</TopContainer>
 
 				<table className="table table-bordered table-striped table-sm custom">
 					<thead>
 						<tr style={{ fontSize: '16px' }}>
-							<th style={{ textAlign: 'center' }}>No</th>
+							{/* <th style={{ textAlign: 'center' }}>No</th> */}
 							<th>Nama Lengkap</th>
 							<th style={{ textAlign: 'center' }}>Skt</th>
 							<th style={{ textAlign: 'center' }}>Jabatan</th>
@@ -201,10 +229,10 @@ export default function HomePage() {
 							return (
 								<Fragment key={i}>
 									<tr>
-										<td style={{ width: '2%', textAlign: 'center' }}>{item.id}</td>
+										{/* <td style={{ width: '2%', textAlign: 'center' }}>{item.id}</td> */}
 										<td style={{ width: '46%' }}>{item.name}</td>
 										<td style={{ width: '2%', textAlign: 'center' }}>{item.sector}</td>
-										<td style={{ width: '50%', alignItems: 'center', lineHeight: "100%"}}>
+										<td style={{ width: '50%', alignItems: 'center', lineHeight: '100%' }}>
 											<form className="custom2">
 												<div>
 													<input

@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 import { AccountBox } from "./components/accountBox";
 import HomePage from "./components/homePage/homePage"
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 
 
@@ -40,13 +40,13 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initiaState);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <AuthContext.Provider value={{
           state,
           dispatch
         }}>
-          {!state.isAuthenticated ?
+          {state.isAuthenticated ?
             <Redirect to={{
               pathname: "/"
             }}
@@ -60,7 +60,7 @@ function App() {
           <Route exact path="/homepage" component={HomePage} />
         </AuthContext.Provider>
       </Switch>
-    </BrowserRouter >
+    </Router >
   );
 }
 
